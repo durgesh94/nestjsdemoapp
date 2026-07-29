@@ -19,4 +19,16 @@ export class UsersService {
   findAll() {
     return this.userRepository.find();
   }
+
+  findOne(id: number) {
+    return this.userRepository.findOneBy({ id });
+  }
+
+  update(id: number, dto: Partial<CreateUserDto>) {
+    return this.userRepository.update(id, dto);
+  }
+
+  remove(id: number) {
+    return this.userRepository.delete(id);
+  }
 }
