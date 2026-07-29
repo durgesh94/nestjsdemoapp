@@ -3,27 +3,33 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
+import { DataSource } from 'typeorm';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
+  let dataSource: DataSource;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
+    dataSource = app.get(DataSource);
+  });
+
+  afterAll(async () => {
+    // Drop all tables to clean up the test database
+    await dataSource.dropDatabase();
+    await app.close();
   });
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
-  });
-
-  afterEach(async () => {
-    await app.close();
+      .expect('Nest application successfully started!');
   });
 });
