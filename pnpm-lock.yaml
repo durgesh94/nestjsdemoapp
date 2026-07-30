@@ -135,6 +135,9 @@ importers:
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
+      typeorm-ts-node-commonjs:
+        specifier: ^0.3.20
+        version: 0.3.20
       typescript:
         specifier: ^5.7.3
         version: 5.9.3
@@ -3197,6 +3200,10 @@ packages:
 
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
+
+  typeorm-ts-node-commonjs@0.3.20:
+    resolution: {integrity: sha512-lXjve7w7OcF3s5+dHnCsrBjUTukpVeiS0bDe5KDXWcDx8TyRW0GTTg9kjWgHzFgHgBIBBu4WGXM0iuGpEgaV9g==}
+    hasBin: true
 
   typeorm@0.3.31:
     resolution: {integrity: sha512-6u9EFtdLBgHjnPm78NStVeM+I/1MolTzKykDDcydzKUkh6E++YS6XViU/fePJbvDvEGU4Xq34KOM/CLeer9I2A==}
@@ -6814,6 +6821,8 @@ snapshots:
       is-typed-array: 1.1.15
 
   typedarray@0.0.6: {}
+
+  typeorm-ts-node-commonjs@0.3.20: {}
 
   typeorm@0.3.31(pg@8.22.0)(ts-node@10.9.2(@types/node@24.13.3)(typescript@5.9.3)):
     dependencies:

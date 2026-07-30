@@ -18,7 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.DB_NAME || 'nestjs_db',
       autoLoadEntities: true, // Automatically load entities from all modules
       // Synchronize the database schema with the entities (use with caution in production)
-      synchronize: true, // Set to true for development, false for production
+      synchronize: false, // Set to true for development, false for production
       // drop the schema each time the application starts (useful for development)
       dropSchema: false, // Set to true for development, false for production
     }),
