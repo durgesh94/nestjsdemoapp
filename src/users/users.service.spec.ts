@@ -97,7 +97,9 @@ describe('UsersService', () => {
     it('should throw NotFoundException if user not found', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.findOne(999)).rejects.toThrow('User with id 999 not found');
+      await expect(service.findOne(999)).rejects.toThrow(
+        'User with id 999 not found',
+      );
       expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
@@ -121,7 +123,9 @@ describe('UsersService', () => {
     it('should throw NotFoundException if user not found', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.update(999, { name: 'Updated' })).rejects.toThrow('User with id 999 not found');
+      await expect(service.update(999, { name: 'Updated' })).rejects.toThrow(
+        'User with id 999 not found',
+      );
       expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
@@ -143,7 +147,9 @@ describe('UsersService', () => {
     it('should throw NotFoundException if user not found', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.remove(999)).rejects.toThrow('User with id 999 not found');
+      await expect(service.remove(999)).rejects.toThrow(
+        'User with id 999 not found',
+      );
       expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });

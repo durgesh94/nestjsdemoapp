@@ -112,9 +112,13 @@ describe('UsersController', () => {
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
-      jest.spyOn(usersService, 'findOne').mockRejectedValue(new Error('User with id 999 not found'));
+      jest
+        .spyOn(usersService, 'findOne')
+        .mockRejectedValue(new Error('User with id 999 not found'));
 
-      await expect(controller.findOne('999')).rejects.toThrow('User with id 999 not found');
+      await expect(controller.findOne('999')).rejects.toThrow(
+        'User with id 999 not found',
+      );
     });
   });
 
@@ -142,9 +146,13 @@ describe('UsersController', () => {
     it('should throw NotFoundException if user does not exist', async () => {
       const dto = { name: 'Jane Doe' };
 
-      jest.spyOn(usersService, 'update').mockRejectedValue(new Error('User with id 999 not found'));
+      jest
+        .spyOn(usersService, 'update')
+        .mockRejectedValue(new Error('User with id 999 not found'));
 
-      await expect(controller.update('999', dto)).rejects.toThrow('User with id 999 not found');
+      await expect(controller.update('999', dto)).rejects.toThrow(
+        'User with id 999 not found',
+      );
     });
   });
 
@@ -162,9 +170,13 @@ describe('UsersController', () => {
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
-      jest.spyOn(usersService, 'remove').mockRejectedValue(new Error('User with id 999 not found'));
+      jest
+        .spyOn(usersService, 'remove')
+        .mockRejectedValue(new Error('User with id 999 not found'));
 
-      await expect(controller.remove('999')).rejects.toThrow('User with id 999 not found');
+      await expect(controller.remove('999')).rejects.toThrow(
+        'User with id 999 not found',
+      );
     });
   });
 });

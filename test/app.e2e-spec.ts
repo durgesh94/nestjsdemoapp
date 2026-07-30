@@ -1,7 +1,6 @@
 /**
  * Application Health Check E2E Test
  * This file serves as the main E2E test entry point and checks basic app health.
- * 
  * Module-specific E2E tests are organized in separate files:
  * - auth.e2e-spec.ts - Authentication module tests
  * - users.e2e-spec.ts - Users module tests
