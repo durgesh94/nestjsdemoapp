@@ -8,25 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpassword
-          POSTGRES_DB: testdb
+          POSTGRES_DB: nestjs_test_db
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U testuser"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
     env:
-      DATABASE_HOST: localhost
-      DATABASE_PORT: 5432
-      DATABASE_USER: testuser
-      DATABASE_PASSWORD: testpassword
-      DATABASE_NAME: testdb
-      JWT_SECRET: mysecretkey
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USERNAME: testuser
+      DB_PASSWORD: testpassword
+      DB_NAME: nestjs_test_db
+      JWT_SECRET: titan
       EXPIRES_IN: 3600
     steps:
       - uses: actions/checkout@v4
