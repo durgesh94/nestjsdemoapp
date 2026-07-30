@@ -1,4 +1,4 @@
-name: Pull request CI validation
+name: PR CI/CD
 on:
   pull_request:
     branches:
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpassword
@@ -16,7 +16,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U testuser"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
