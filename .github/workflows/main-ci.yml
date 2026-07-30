@@ -36,7 +36,7 @@ jobs:
       DB_PASSWORD: postgres
       DB_NAME: nestjs_test_db
 
-      JWT_SECRET: test-secret
+      JWT_SECRET: titan
       EXPIRES_IN: 1d
 
     steps:
