@@ -13,12 +13,18 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { toUserResponse } from './mappers/user.mapper';
+import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
+import { UserResponseDto } from './dto/user-response.dto';
 
+@ApiTags('users') // Swagger tag for Users
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @ApiCreatedResponse({
+    type: UserResponseDto,
+  })
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.create(createUserDto);
     return toUserResponse(user);

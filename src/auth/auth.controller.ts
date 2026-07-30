@@ -4,7 +4,9 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { toUserResponse } from 'src/users/mappers/user.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth') // Swagger tag for Auth
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

@@ -12,7 +12,10 @@ import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('orders') // Swagger tag for Orders
+@ApiBearerAuth() // Indicates that this controller uses Bearer authentication for Swagger
 @Controller('orders')
 @UseGuards(JwtAuthGuard) // Apply JWT authentication guard to all routes in this controller
 export class OrdersController {
