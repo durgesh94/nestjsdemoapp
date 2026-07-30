@@ -9,16 +9,19 @@ A RESTful API built with NestJS, TypeORM, and PostgreSQL for managing users, pro
 - **PostgreSQL** — Database
 - **class-validator** / **class-transformer** — Request validation
 - **Jest** — Unit & E2E testing
+- **Swagger** — API documentation
 
 ## Project Structure
 
 ```
+docs/
 src/
 ├── users/        # User CRUD (name, email)
 ├── products/     # Product CRUD (name, description, price)
 ├── orders/       # Order CRUD with OrderItems
 ├── auth/         # Authentication module
 └── main.ts       # Application entry point
+test/
 ```
 
 ## Database Schema
