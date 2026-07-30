@@ -1,82 +1,151 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# My NestJS API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A RESTful API built with NestJS, TypeORM, and PostgreSQL for managing users, products, and orders.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- **NestJS** v11 — Node.js framework
+- **TypeORM** v0.3 — ORM for PostgreSQL
+- **PostgreSQL** — Database
+- **class-validator** / **class-transformer** — Request validation
+- **Jest** — Unit & E2E testing
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Project Structure
 
-## Project setup
-
-```bash
-$ pnpm install
+```
+src/
+├── users/        # User CRUD (name, email)
+├── products/     # Product CRUD (name, description, price)
+├── orders/       # Order CRUD with OrderItems
+├── auth/         # Authentication module
+└── main.ts       # Application entry point
 ```
 
-## Compile and run the project
+## Database Schema
+
+- **User** — `id`, `name`, `email` (unique)
+- **Product** — `id`, `name`, `description`, `price`
+- **Order** — `id`, `userId`, `status` (enum: PENDING, CONFIRMED, PACKED, SHIPPED, DELIVERED, CANCELLED), `totalAmount`
+- **OrderItem** — `id`, `orderId`, `productId`, `quantity`, `price`
+
+### Relationships
+
+- User → Orders (one-to-many)
+- Order → OrderItems (one-to-many, cascade)
+- Product → OrderItems (one-to-many)
+
+## Setup
+
+### Prerequisites
+
+- Node.js v20+
+- PostgreSQL
+- pnpm
+
+### Installation
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+### Database
+
+Create the PostgreSQL database:
+
+```bash
+createdb nestjs_db
+```
+
+Configure connection in `src/app.module.ts` via environment variables:
+
+| Variable | Default |
+|----------|---------|
+| `DB_HOST` | localhost |
+| `DB_PORT` | 5432 |
+| `DB_USERNAME` | durgesh.tambe |
+| `DB_PASSWORD` | (empty) |
+| `DB_NAME` | nestjs_db |
+
+The app uses `synchronize: true` so tables are auto-created on startup.
+
+## Running the App
+
+```bash
+# development (watch mode)
+pnpm start:dev
+
+# production build
+pnpm build
+pnpm start:prod
+```
+
+## API Endpoints
+
+### Users
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/users` | Create user |
+| GET | `/users` | Get all users |
+| GET | `/users/:id` | Get user by ID |
+| PATCH | `/users/:id` | Update user |
+| DELETE | `/users/:id` | Delete user |
+
+### Products
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/products` | Create product |
+| GET | `/products` | Get all products |
+| GET | `/products/:id` | Get product by ID |
+| PATCH | `/products/:id` | Update product |
+| DELETE | `/products/:id` | Delete product |
+
+### Orders
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/orders` | Create order (auto-fetches product prices) |
+| GET | `/orders` | Get all orders with relations |
+| GET | `/orders/:id` | Get order by ID with relations |
+| PATCH | `/orders/:id` | Update order |
+| PATCH | `/orders/:id/status` | Update order status |
+| DELETE | `/orders/:id` | Delete order |
+
+#### Create Order Example
+
+```json
+POST /orders
+{
+  "userId": 1,
+  "items": [
+    { "productId": 1, "quantity": 2 },
+    { "productId": 3, "quantity": 1 }
+  ]
+}
+```
+
+Product prices are fetched from the database and `totalAmount` is auto-calculated.
+
+## Testing
 
 ```bash
 # unit tests
-$ pnpm run test
+pnpm test
 
-# e2e tests
-$ pnpm run test:e2e
+# e2e tests (uses nestjs_test_db, cleaned up after run)
+pnpm test:e2e
 
 # test coverage
-$ pnpm run test:cov
+pnpm test:cov
 ```
 
-## Deployment
+E2E tests use a dedicated `nestjs_test_db` database. Create it before running:
 
-coming soon!
+```bash
+createdb nestjs_test_db
+```
 
-## Resources
+## License
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+UNLICENSED
 
 ## Stay in touch
 
