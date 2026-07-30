@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let repository: jest.Mocked<Repository<User>>;
+  let repository: any;
 
   const mockRepository = {
     create: jest.fn(),
     save: jest.fn(),
     find: jest.fn(),
     findOneBy: jest.fn(),
+    findOne: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
   };
@@ -29,6 +29,7 @@ describe('UsersService', () => {
     }).compile();
 
     service = module.get<UsersService>(UsersService);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     repository = module.get(getRepositoryToken(User));
     jest.clearAllMocks();
   });
@@ -36,23 +37,27 @@ describe('UsersService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
   describe('create()', () => {
     it('should save a user', async () => {
       const dto = {
         name: 'John Doe',
         email: 'john.doe@example.com',
+        password: 'password123',
       };
 
-      repository.create.mockReturnValue(dto as User);
-      repository.save.mockResolvedValue(dto as User);
+      const mockUser = { id: 1, ...dto };
+      repository.create.mockReturnValue(mockUser);
+      repository.save.mockResolvedValue(mockUser);
 
       const result = await service.create(dto);
 
-      expect(mockRepository.create).toHaveBeenCalledWith(dto);
-      expect(mockRepository.save).toHaveBeenCalledWith(dto);
-      expect(result).toEqual(dto);
+      expect(repository.create).toHaveBeenCalledWith(dto);
+      expect(repository.save).toHaveBeenCalledWith(mockUser);
+      expect(result).toEqual(mockUser);
     });
   });
+
   describe('findAll()', () => {
     it('should return all users', async () => {
       const users = [
@@ -60,46 +65,110 @@ describe('UsersService', () => {
         { id: 2, name: 'Jane Doe', email: 'jane.doe@example.com' },
       ];
 
-      repository.find.mockResolvedValue(users as User[]);
+      repository.find.mockResolvedValue(users);
 
       const result = await service.findAll();
 
-      expect(mockRepository.find).toHaveBeenCalled();
+      expect(repository.find).toHaveBeenCalled();
       expect(result).toEqual(users);
     });
+
+    it('should return empty array if no users exist', async () => {
+      repository.find.mockResolvedValue([]);
+
+      const result = await service.findAll();
+
+      expect(result).toEqual([]);
+    });
   });
+
   describe('findOne()', () => {
     it('should return a user by id', async () => {
       const user = { id: 1, name: 'John Doe', email: 'john.doe@example.com' };
 
-      repository.findOneBy.mockResolvedValue(user as User);
+      repository.findOneBy.mockResolvedValue(user);
 
       const result = await service.findOne(1);
 
-      expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 1 });
       expect(result).toEqual(user);
     });
+
+    it('should return null if user not found', async () => {
+      repository.findOneBy.mockResolvedValue(null);
+
+      const result = await service.findOne(999);
+
+      expect(result).toBeNull();
+    });
   });
+
   describe('update()', () => {
     it('should update a user', async () => {
       const dto = { name: 'John Smith' };
 
-      repository.update.mockResolvedValue({ affected: 1 } as any);
+      repository.update.mockResolvedValue({ affected: 1 });
 
       const result = await service.update(1, dto);
 
-      expect(mockRepository.update).toHaveBeenCalledWith(1, dto);
-      expect(result).toEqual({ affected: 1 });
+      expect(repository.update).toHaveBeenCalledWith(1, dto);
+      expect(result.affected).toBe(1);
+    });
+
+    it('should return affected 0 if user not found', async () => {
+      const dto = { name: 'John Smith' };
+
+      repository.update.mockResolvedValue({ affected: 0 });
+
+      const result = await service.update(999, dto);
+
+      expect(result.affected).toBe(0);
     });
   });
+
   describe('remove()', () => {
     it('should remove a user', async () => {
-      repository.delete.mockResolvedValue({ affected: 1 } as any);
+      repository.delete.mockResolvedValue({ affected: 1 });
 
       const result = await service.remove(1);
 
-      expect(mockRepository.delete).toHaveBeenCalledWith(1);
-      expect(result).toEqual({ affected: 1 });
+      expect(repository.delete).toHaveBeenCalledWith(1);
+      expect(result.affected).toBe(1);
+    });
+
+    it('should return affected 0 if user not found', async () => {
+      repository.delete.mockResolvedValue({ affected: 0 });
+
+      const result = await service.remove(999);
+
+      expect(result.affected).toBe(0);
+    });
+  });
+
+  describe('findByEmail()', () => {
+    it('should find a user by email', async () => {
+      const user = {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+      };
+
+      repository.findOne.mockResolvedValue(user);
+
+      const result = await service.findByEmail('john.doe@example.com');
+
+      expect(repository.findOne).toHaveBeenCalledWith({
+        where: { email: 'john.doe@example.com' },
+      });
+      expect(result).toEqual(user);
+    });
+
+    it('should return null if user not found by email', async () => {
+      repository.findOne.mockResolvedValue(null);
+
+      const result = await service.findByEmail('nonexistent@example.com');
+
+      expect(result).toBeNull();
     });
   });
 });
