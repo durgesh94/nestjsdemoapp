@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('orders')
+@UseGuards(JwtAuthGuard) // Apply JWT authentication guard to all routes in this controller
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

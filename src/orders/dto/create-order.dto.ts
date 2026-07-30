@@ -1,4 +1,4 @@
-import { IsInt, Min, MinLength } from 'class-validator';
+import { IsInt, Min, ArrayMinSize, IsArray } from 'class-validator';
 
 export class CreateOrderItemDto {
   @IsInt()
@@ -15,6 +15,7 @@ export class CreateOrderDto {
   @Min(1, { message: 'User ID must be a positive integer' })
   userId!: number;
 
-  @MinLength(1, { message: 'Order must contain at least one item' })
+  @IsArray()
+  @ArrayMinSize(1, { message: 'Order must contain at least one item' })
   items!: CreateOrderItemDto[];
 }
