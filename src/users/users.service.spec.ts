@@ -60,7 +60,7 @@ describe('UsersService', () => {
         { id: 2, name: 'Jane Doe', email: 'jane.doe@example.com' },
       ];
 
-      repository.find.mockResolvedValue(users);
+      repository.find.mockResolvedValue(users as User[]);
 
       const result = await service.findAll();
 
@@ -72,7 +72,7 @@ describe('UsersService', () => {
     it('should return a user by id', async () => {
       const user = { id: 1, name: 'John Doe', email: 'john.doe@example.com' };
 
-      repository.findOneBy.mockResolvedValue(user);
+      repository.findOneBy.mockResolvedValue(user as User);
 
       const result = await service.findOne(1);
 
