@@ -30,11 +30,11 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_HOST: localhost
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: nest_test
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: nest_test
 
       JWT_SECRET: test-secret
       EXPIRES_IN: 1d
