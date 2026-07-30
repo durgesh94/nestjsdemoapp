@@ -143,6 +143,23 @@ E2E tests use a dedicated `nestjs_test_db` database. Create it before running:
 createdb nestjs_test_db
 ```
 
+## Scripts
+
+| Script | Command | Description |
+|--------|---------|-------------|
+| `pnpm build` | `nest build` | Compile the project |
+| `pnpm start` | `nest start` | Start the app |
+| `pnpm start:dev` | `nest start --watch` | Start in watch mode (development) |
+| `pnpm start:debug` | `nest start --debug --watch` | Start in debug + watch mode |
+| `pnpm start:prod` | `node dist/main` | Run compiled production build |
+| `pnpm format` | `prettier --write` | Format all TypeScript files |
+| `pnpm lint` | `eslint --fix` | Lint and auto-fix code |
+| `pnpm test` | `jest` | Run unit tests |
+| `pnpm test:watch` | `jest --watch` | Run tests in watch mode |
+| `pnpm test:cov` | `jest --coverage` | Run tests with coverage report |
+| `pnpm test:debug` | `jest --runInBand` | Run tests with debugger attached |
+| `pnpm test:e2e` | `jest --config ./test/jest-e2e.json` | Run end-to-end tests |
+
 ## License
 
 UNLICENSED
