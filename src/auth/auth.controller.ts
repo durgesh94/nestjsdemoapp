@@ -3,14 +3,16 @@ import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { toUserResponse } from 'src/users/mappers/user.mapper';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/register')
-  register(@Body() registerAuthDto: RegisterAuthDto) {
-    return this.authService.register(registerAuthDto);
+  async register(@Body() registerAuthDto: RegisterAuthDto) {
+    const user = await this.authService.register(registerAuthDto);
+    return toUserResponse(user);
   }
 
   @Post('/login')
