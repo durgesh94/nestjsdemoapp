@@ -7,4 +7,6 @@ export class CreateUserDto {
 
   @IsEmail({}, { message: 'Invalid email address' })
   email!: string;
+
+  password!: string;
 }
