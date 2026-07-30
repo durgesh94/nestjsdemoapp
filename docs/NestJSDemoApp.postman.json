@@ -1,0 +1,713 @@
+{
+    "info": {
+        "name": "NestJSDemoApp",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "",
+            "item": [
+                {
+                    "name": "register",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\":\"shivani\",\n    \"email\":\"shivani@gmail.com\",\n    \"password\":\"shivani@123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/auth/register",
+                            "path": [
+                                "auth",
+                                "register"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "login",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\":\"shivani@gmail.com\",\n    \"password\":\"shivani@123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/auth/login",
+                            "path": [
+                                "auth",
+                                "login"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Users",
+            "description": "",
+            "item": [
+                {
+                    "name": "getAll",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/users",
+                            "path": [
+                                "users"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "getById",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/users/1",
+                            "path": [
+                                "users",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "save",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Durgesh\",\n    \"email\": \"dntambe@gmail.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/users",
+                            "path": [
+                                "users"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "update",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PATCH",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"test\",\n    \"email\": \"test@gmail.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/users/1",
+                            "path": [
+                                "users",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "deleteById",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/users/1",
+                            "path": [
+                                "users",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Products",
+            "description": "",
+            "item": [
+                {
+                    "name": "getAll",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products",
+                            "path": [
+                                "products"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "getById",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products/1",
+                            "path": [
+                                "products",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "save",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n        \"name\": \"iPhone\",\n        \"description\": \"phone\",\n        \"price\": \"79000\"\n    }",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products",
+                            "path": [
+                                "products"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "update",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PATCH",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"description\": \"Phone updated\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products/1",
+                            "path": [
+                                "products",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "deleteById",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/products/3",
+                            "path": [
+                                "products",
+                                "3"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Orders",
+            "description": "",
+            "item": [
+                {
+                    "name": "getAll",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2hpdmFuaUBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3ODU0MTA2MjksImV4cCI6MTc4NTQ5NzAyOX0.h_6tehI9teDpQrSnuCCIt4j2S5uvMvR0usdllErPuRE",
+                                "description": "",
+                                "type": "string"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:3000/orders",
+                            "path": [
+                                "orders"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "getById",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/orders/1",
+                            "path": [
+                                "orders",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "save",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"userId\": 2,\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"productId\": 2,\n      \"quantity\": 5\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/orders",
+                            "path": [
+                                "orders"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "update",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PATCH",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"items\": [\n    {\n      \"productId\": 3,\n      \"quantity\": 1\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/orders/2",
+                            "path": [
+                                "orders",
+                                "2"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "updateStatus",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PATCH",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"status\":\"SHIPPED\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/orders/2/status",
+                            "path": [
+                                "orders",
+                                "2",
+                                "status"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "3000",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        }
+    ],
+    "variable": [],
+    "event": [],
+    "auth": {}
+}
