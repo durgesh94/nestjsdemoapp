@@ -58,7 +58,6 @@ export class AuthService {
   }
 
   updatePassword(updatePasswordDto: UpdatePasswordDto) {
-    console.log(updatePasswordDto);
     return `This action updates the password for user #${updatePasswordDto.currentPassword}`;
   }
 }
