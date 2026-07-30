@@ -88,7 +88,9 @@ describe('ProductsService', () => {
     it('should throw NotFoundException when product does not exist', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.findOne(999)).rejects.toThrow('Product with id 999 not found');
+      await expect(service.findOne(999)).rejects.toThrow(
+        'Product with id 999 not found',
+      );
       expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
@@ -123,7 +125,9 @@ describe('ProductsService', () => {
     it('should throw NotFoundException when product does not exist', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.update(1, { name: 'Updated' })).rejects.toThrow('Product with id 1 not found');
+      await expect(service.update(1, { name: 'Updated' })).rejects.toThrow(
+        'Product with id 1 not found',
+      );
       expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
     });
   });
@@ -149,7 +153,9 @@ describe('ProductsService', () => {
     it('should throw NotFoundException when product does not exist', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      await expect(service.remove(1)).rejects.toThrow('Product with id 1 not found');
+      await expect(service.remove(1)).rejects.toThrow(
+        'Product with id 1 not found',
+      );
       expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
     });
   });

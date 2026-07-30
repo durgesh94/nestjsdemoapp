@@ -68,12 +68,16 @@ describe('Integration E2E Tests', () => {
       const testProductId = productResponse.body.id;
 
       // 4. Retrieve the created product
-      const getProductResponse = await request(app.getHttpServer())
-        .get(`/products/${testProductId}`);
+      const getProductResponse = await request(app.getHttpServer()).get(
+        `/products/${testProductId}`,
+      );
 
       expect(getProductResponse.status).toBe(200);
       expect(getProductResponse.body).toHaveProperty('id', testProductId);
-      expect(getProductResponse.body).toHaveProperty('name', 'Integration Product');
+      expect(getProductResponse.body).toHaveProperty(
+        'name',
+        'Integration Product',
+      );
 
       // 5. Create an order with the product
       const orderResponse = await request(app.getHttpServer())
@@ -172,7 +176,10 @@ describe('Integration E2E Tests', () => {
         .set('Authorization', `Bearer ${token}`);
 
       expect(profileResponse.status).toBe(200);
-      expect(profileResponse.body).toHaveProperty('email', 'profile@example.com');
+      expect(profileResponse.body).toHaveProperty(
+        'email',
+        'profile@example.com',
+      );
       expect(profileResponse.body).toHaveProperty('name', 'Profile Test User');
     });
   });

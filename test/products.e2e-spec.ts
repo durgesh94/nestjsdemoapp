@@ -100,9 +100,7 @@ describe('Products Module E2E Tests', () => {
     });
 
     it('should return 404 for non-existent product', () => {
-      return request(app.getHttpServer())
-        .get('/products/9999')
-        .expect(404);
+      return request(app.getHttpServer()).get('/products/9999').expect(404);
     });
   });
 

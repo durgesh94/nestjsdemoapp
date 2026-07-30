@@ -81,9 +81,7 @@ describe('Users Module E2E Tests', () => {
     });
 
     it('should reject unauthorized request', () => {
-      return request(app.getHttpServer())
-        .get('/users')
-        .expect(401);
+      return request(app.getHttpServer()).get('/users').expect(401);
     });
   });
 
@@ -95,7 +93,10 @@ describe('Users Module E2E Tests', () => {
         .expect(200)
         .then((response) => {
           expect(response.body).toHaveProperty('id', userId);
-          expect(response.body).toHaveProperty('email', 'test.user@example.com');
+          expect(response.body).toHaveProperty(
+            'email',
+            'test.user@example.com',
+          );
         });
     });
 
@@ -117,7 +118,10 @@ describe('Users Module E2E Tests', () => {
         })
         .expect(200)
         .then((response) => {
-          expect(response.body).toHaveProperty('message', 'User updated successfully');
+          expect(response.body).toHaveProperty(
+            'message',
+            'User updated successfully',
+          );
           expect(response.body).toHaveProperty('data');
         });
     });
@@ -140,7 +144,10 @@ describe('Users Module E2E Tests', () => {
         .set('Authorization', `Bearer ${deleteUserToken}`)
         .expect(200)
         .then((response) => {
-          expect(response.body).toHaveProperty('message', 'User removed successfully');
+          expect(response.body).toHaveProperty(
+            'message',
+            'User removed successfully',
+          );
           expect(response.body).toHaveProperty('data');
         });
     });
