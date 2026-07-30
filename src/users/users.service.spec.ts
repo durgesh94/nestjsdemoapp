@@ -94,54 +94,57 @@ describe('UsersService', () => {
       expect(result).toEqual(user);
     });
 
-    it('should return null if user not found', async () => {
+    it('should throw NotFoundException if user not found', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      const result = await service.findOne(999);
-
-      expect(result).toBeNull();
+      await expect(service.findOne(999)).rejects.toThrow('User with id 999 not found');
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
 
   describe('update()', () => {
     it('should update a user', async () => {
+      const user = { id: 1, name: 'John Doe', email: 'john.doe@example.com' };
       const dto = { name: 'John Smith' };
+      const updatedUser = { ...user, ...dto };
 
-      repository.update.mockResolvedValue({ affected: 1 });
+      repository.findOneBy.mockResolvedValue(user);
+      repository.save.mockResolvedValue(updatedUser);
 
       const result = await service.update(1, dto);
 
-      expect(repository.update).toHaveBeenCalledWith(1, dto);
-      expect(result.affected).toBe(1);
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 1 });
+      expect(repository.save).toHaveBeenCalledWith(updatedUser);
+      expect(result).toEqual(updatedUser);
     });
 
-    it('should return affected 0 if user not found', async () => {
-      const dto = { name: 'John Smith' };
+    it('should throw NotFoundException if user not found', async () => {
+      repository.findOneBy.mockResolvedValue(null);
 
-      repository.update.mockResolvedValue({ affected: 0 });
-
-      const result = await service.update(999, dto);
-
-      expect(result.affected).toBe(0);
+      await expect(service.update(999, { name: 'Updated' })).rejects.toThrow('User with id 999 not found');
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
 
   describe('remove()', () => {
     it('should remove a user', async () => {
+      const user = { id: 1, name: 'John Doe', email: 'john.doe@example.com' };
+
+      repository.findOneBy.mockResolvedValue(user);
       repository.delete.mockResolvedValue({ affected: 1 });
 
       const result = await service.remove(1);
 
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 1 });
       expect(repository.delete).toHaveBeenCalledWith(1);
-      expect(result.affected).toBe(1);
+      expect(result).toEqual(user);
     });
 
-    it('should return affected 0 if user not found', async () => {
-      repository.delete.mockResolvedValue({ affected: 0 });
+    it('should throw NotFoundException if user not found', async () => {
+      repository.findOneBy.mockResolvedValue(null);
 
-      const result = await service.remove(999);
-
-      expect(result.affected).toBe(0);
+      await expect(service.remove(999)).rejects.toThrow('User with id 999 not found');
+      expect(repository.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
 

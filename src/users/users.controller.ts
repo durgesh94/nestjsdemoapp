@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,35 +25,30 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll() {
     const users = await this.usersService.findAll();
     return users.map(toUserResponse);
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
     const user = await this.usersService.findOne(+id);
-    if (!user) {
-      return { message: 'User not found' };
-    }
     return toUserResponse(user);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    const result = await this.usersService.update(+id, updateUserDto);
-    if (!result.affected || result.affected === 0) {
-      return { message: 'User not found' };
-    }
-    return { message: 'User updated successfully' };
+    const user = await this.usersService.update(+id, updateUserDto);
+    return { message: 'User updated successfully', data: toUserResponse(user) };
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: string) {
-    const result = await this.usersService.remove(+id);
-    if (!result.affected || result.affected === 0) {
-      return { message: 'User not found' };
-    }
-    return { message: 'User removed successfully' };
+    const user = await this.usersService.remove(+id);
+    return { message: 'User removed successfully', data: toUserResponse(user) };
   }
 }

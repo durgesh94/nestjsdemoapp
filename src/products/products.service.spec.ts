@@ -85,43 +85,72 @@ describe('ProductsService', () => {
       expect(result).toEqual(product);
     });
 
-    it('should return null when product does not exist', async () => {
+    it('should throw NotFoundException when product does not exist', async () => {
       repository.findOneBy.mockResolvedValue(null);
 
-      const result = await service.findOne(999);
-
+      await expect(service.findOne(999)).rejects.toThrow('Product with id 999 not found');
       expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 999 });
-      expect(result).toBeNull();
     });
   });
 
   describe('update()', () => {
     it('should update a product', async () => {
-      const dto = {
+      const product = {
+        id: 1,
+        name: 'Laptop',
+        price: 80000,
+      };
+
+      const updateDto = {
         name: 'Gaming Laptop',
       };
 
-      repository.update.mockResolvedValue({
-        affected: 1,
-      } as any);
+      const updatedProduct = {
+        ...product,
+        ...updateDto,
+      };
 
-      const result = await service.update(1, dto);
+      repository.findOneBy.mockResolvedValue(product as Product);
+      repository.save.mockResolvedValue(updatedProduct as Product);
 
-      expect(mockRepository.update).toHaveBeenCalledWith(1, dto);
-      expect(result.affected).toBe(1);
+      const result = await service.update(1, updateDto);
+
+      expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
+      expect(mockRepository.save).toHaveBeenCalledWith(updatedProduct);
+      expect(result).toEqual(updatedProduct);
+    });
+
+    it('should throw NotFoundException when product does not exist', async () => {
+      repository.findOneBy.mockResolvedValue(null);
+
+      await expect(service.update(1, { name: 'Updated' })).rejects.toThrow('Product with id 1 not found');
+      expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
     });
   });
 
   describe('remove()', () => {
     it('should delete a product', async () => {
-      repository.delete.mockResolvedValue({
-        affected: 1,
-      } as any);
+      const product = {
+        id: 1,
+        name: 'Laptop',
+        price: 80000,
+      };
+
+      repository.findOneBy.mockResolvedValue(product as Product);
+      repository.delete.mockResolvedValue({ affected: 1 } as any);
 
       const result = await service.remove(1);
 
+      expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
       expect(mockRepository.delete).toHaveBeenCalledWith(1);
-      expect(result.affected).toBe(1);
+      expect(result).toEqual(product);
+    });
+
+    it('should throw NotFoundException when product does not exist', async () => {
+      repository.findOneBy.mockResolvedValue(null);
+
+      await expect(service.remove(1)).rejects.toThrow('Product with id 1 not found');
+      expect(mockRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
     });
   });
 });

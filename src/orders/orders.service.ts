@@ -113,7 +113,11 @@ export class OrdersService {
 
   async remove(id: number) {
     const order = await this.findOne(id);
-    return this.orderRepository.remove(order);
+    // Delete order items first due to foreign key constraints
+    await this.orderItemRepository.delete({ orderId: id });
+    // Then delete the order
+    await this.orderRepository.delete(id);
+    return order;
   }
 
   async updateStatus(id: number, status: string) {

@@ -45,6 +45,7 @@ describe('OrdersService', () => {
     find: jest.fn(),
     findOne: jest.fn(),
     remove: jest.fn(),
+    delete: jest.fn(),
   };
 
   const mockOrderItemRepository = {
@@ -285,7 +286,8 @@ describe('OrdersService', () => {
   describe('remove()', () => {
     it('should remove an order', async () => {
       orderRepository.findOne.mockResolvedValue(mockOrder);
-      orderRepository.remove.mockResolvedValue(mockOrder);
+      orderItemRepository.delete.mockResolvedValue({ affected: 2 });
+      orderRepository.delete.mockResolvedValue({ affected: 1 });
 
       const result = await service.remove(1);
 
@@ -293,7 +295,8 @@ describe('OrdersService', () => {
         where: { id: 1 },
         relations: { user: true, items: { product: true } },
       });
-      expect(orderRepository.remove).toHaveBeenCalledWith(mockOrder);
+      expect(orderItemRepository.delete).toHaveBeenCalledWith({ orderId: 1 });
+      expect(orderRepository.delete).toHaveBeenCalledWith(1);
       expect(result).toEqual(mockOrder);
     });
 
