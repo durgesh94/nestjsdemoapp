@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { OrderStatus } from './enums/order-status.enum';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
@@ -113,5 +114,11 @@ export class OrdersService {
   async remove(id: number) {
     const order = await this.findOne(id);
     return this.orderRepository.remove(order);
+  }
+
+  async updateStatus(id: number, status: string) {
+    const order = await this.findOne(id);
+    order.status = status as OrderStatus; // Cast to OrderStatus enum
+    return this.orderRepository.save(order);
   }
 }

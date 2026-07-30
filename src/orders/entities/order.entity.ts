@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { OrderItem } from './orderItem.entity';
+import { OrderStatus } from '../enums/order-status.enum';
 
 @Entity()
 export class Order {
@@ -16,8 +17,8 @@ export class Order {
   @Column()
   userId!: number;
 
-  @Column({ default: 'pending' })
-  status!: string;
+  @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
+  status!: OrderStatus;
 
   @Column('decimal', { precision: 10, scale: 2 })
   totalAmount!: number;

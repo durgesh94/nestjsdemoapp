@@ -39,4 +39,12 @@ export class OrdersController {
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);
   }
+
+  @Patch(':id/status')
+  updateStatus(
+    @Param('id') id: string,
+    @Body() updateOrderStatusDto: { status: string },
+  ) {
+    return this.ordersService.updateStatus(+id, updateOrderStatusDto.status);
+  }
 }
