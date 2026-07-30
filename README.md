@@ -14,14 +14,29 @@ A RESTful API built with NestJS, TypeORM, and PostgreSQL for managing users, pro
 ## Project Structure
 
 ```
-docs/
-src/
-├── users/        # User CRUD (name, email)
-├── products/     # Product CRUD (name, description, price)
-├── orders/       # Order CRUD with OrderItems
-├── auth/         # Authentication module
-└── main.ts       # Application entry point
-test/
+.
+├── docs/         
+├── src/
+│   ├── auth/         # Authentication module
+│   ├── orders/       # Order CRUD with OrderItems
+│   ├── products/     # Product CRUD (name, description, price)
+│   ├── users/        # User CRUD (name, email)
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts       # Application entry point
+├── test/             # E2E tests
+│   ├── app.e2e-spec.ts
+│   ├── jest-e2e.json
+│   └── setup-e2e.ts
+├── coverage/
+├── nest-cli.json
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── tsconfig.build.json
+├── tsconfig.json
+└── README.md
 ```
 
 ## Database Schema
